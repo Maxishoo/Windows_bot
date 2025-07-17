@@ -93,6 +93,7 @@ def start(message):
 
 @bot.callback_query_handler(func=lambda call: call.data == 'accept_privacy')
 def accept_privacy(call):
+    bot.answer_callback_query(call.id)
     user_states[call.message.chat.id] = 'main_menu'
     show_main_menu(call.message)
 
@@ -170,6 +171,10 @@ def show_portfolio(message):
 def handle_main_menu_button(message):
     user_states[message.chat.id] = 'main_menu'
     show_main_menu(message)
+
+@bot.message_handler(func=lambda message: message.text == "🖼 Портфолио")
+def handle_main_menu_button(message):
+    show_portfolio(message)
 
 # Ветка для остекления окон
 
